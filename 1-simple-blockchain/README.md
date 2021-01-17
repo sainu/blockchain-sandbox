@@ -1,4 +1,4 @@
-# Blockchain Sandbox
+# 1 Simple Blockchain
 
 # Setup
 
