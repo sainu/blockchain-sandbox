@@ -8,12 +8,18 @@ import { BlockchainService } from 'src/app/services/blockchain.service';
 })
 export class BlockchainViewerComponent implements OnInit {
   public blocks = [];
+  public selectedBlock = null;
 
   constructor(private blockChainService: BlockchainService) {
     this.blocks = blockChainService.getBlocks();
+    this.selectedBlock = this.blocks[0];
   }
 
   ngOnInit(): void {
+  }
+
+  showTransactions(block) {
+    this.selectedBlock = block;
   }
 
 }
