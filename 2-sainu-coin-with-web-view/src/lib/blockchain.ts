@@ -5,7 +5,7 @@ const ec = new EC('secp256k1');
 export class Transaction {
   private signature?: string;
 
-  constructor(public fromAddress: string | null, public toAddress: string, public amount: number) {}
+  constructor(public timestamp: number, public fromAddress: string | null, public toAddress: string, public amount: number) {}
 
   private calculateHash(): string {
     return SHA256(this.fromAddress + this.toAddress + this.amount).toString();
@@ -94,7 +94,7 @@ export class BlockChain {
   }
 
   minePendingTransactions(miningRewardAddress: string): void {
-    const rewardTx = new Transaction(null, miningRewardAddress, this.miningReward);
+    const rewardTx = new Transaction(Date.now(), null, miningRewardAddress, this.miningReward);
     this.pendingTransactions.push(rewardTx);
 
     const block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
@@ -104,7 +104,7 @@ export class BlockChain {
     this.chain.push(block);
 
     this.pendingTransactions = [
-      new Transaction(null, miningRewardAddress, this.miningReward)
+      new Transaction(Date.now(), null, miningRewardAddress, this.miningReward)
     ];
   }
 
