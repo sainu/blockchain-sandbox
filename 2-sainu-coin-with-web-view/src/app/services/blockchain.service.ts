@@ -29,6 +29,16 @@ export class BlockchainService {
     this.blockChainInstance.addTransaction(tx);
   }
 
+  getPendingTransactions() {
+    return this.blockChainInstance.pendingTransactions;
+  }
+
+  minePendingTransactions() {
+    this.blockChainInstance.minePendingTransactions(
+      this.walletKeys[0].publicKey
+    )
+  }
+
   private generateWalletKeys(): void {
     const ec = new EC('secp256k1');
     const key = ec.genKeyPair();
