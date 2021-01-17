@@ -10,6 +10,7 @@ class Block {
   public data: BlockData;
   public previousHash: string;
   public hash: string;
+  private nonce: number;
 
   constructor(index: number, timestamp: string, data: BlockData, previousHash = '') {
     this.index = index;
@@ -17,18 +18,30 @@ class Block {
     this.data = data;
     this.previousHash = previousHash;
     this.hash = this.calculateHash();
+    this.nonce = 0;
   }
 
   calculateHash(): string {
-    return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();
+    return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
+  }
+
+  mineBlock(difficulty: number) {
+    while(this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+      this.nonce++;
+      this.hash = this.calculateHash();
+    }
+
+    console.log("Block mined: " + this.hash);
   }
 }
 
 class BlockChain {
   public chain: Block[];
+  private difficulty: number;
 
   constructor() {
     this.chain = [this.createGenesisBlock()];
+    this.difficulty = 2;
   }
 
   private createGenesisBlock(): Block {
@@ -41,7 +54,7 @@ class BlockChain {
 
   addBlock(newBlock: Block) {
     newBlock.previousHash = this.getLatestBlock().hash;
-    newBlock.hash = newBlock.calculateHash();
+    newBlock.mineBlock(this.difficulty);
     this.chain.push(newBlock);
   }
 
@@ -64,14 +77,9 @@ class BlockChain {
 }
 
 const sainuCoin = new BlockChain();
+
+console.log("Mining block 1...");
 sainuCoin.addBlock(new Block(1, "10/07/2017", { amount: 4 }))
+
+console.log("Mining block 2...");
 sainuCoin.addBlock(new Block(2, "12/07/2017", { amount: 10 }))
-
-console.log('Is blockchain valid? ' + sainuCoin.isChainValid());
-
-sainuCoin.chain[1].data = { amount: 100 };
-sainuCoin.chain[1].hash = sainuCoin.chain[1].calculateHash();
-
-console.log('Is blockchain valid? ' + sainuCoin.isChainValid());
-
-// console.log(JSON.stringify(sainuCoin, null, 4));
