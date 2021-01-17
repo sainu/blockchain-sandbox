@@ -11,3 +11,5 @@ docker-compose build
 ```
 docker-compose up -d
 ```
+
+and access to http://localhost:4200/
