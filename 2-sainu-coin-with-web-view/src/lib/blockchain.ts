@@ -74,7 +74,7 @@ class Block {
 
 export class BlockChain {
   public chain: Block[];
-  private difficulty: number;
+  public difficulty: number;
   private pendingTransactions: Transaction[];
   private miningReward: number;
 
