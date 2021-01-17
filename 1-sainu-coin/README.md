@@ -1,4 +1,4 @@
-# 1 Simple Blockchain
+# Sainu Coin
 
 # Setup
 
