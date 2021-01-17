@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sainu/blockchain-sandbox/issues"
   },
-  "homepage": "https://github.com/sainu/blockchain-sandbox#readme"
+  "homepage": "https://github.com/sainu/blockchain-sandbox#readme",
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
 }
