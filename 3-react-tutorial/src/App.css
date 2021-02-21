@@ -1,0 +1,16 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
+}
+
+ol, ul {
+  padding-left: 30px;
+}
+
+.history .bold {
+  font-weight: bold;
+}
+
+.history .bold button {
+  font-weight: bold;
+}
